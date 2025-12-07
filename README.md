@@ -1,4 +1,3 @@
-```
 # ⚽ Campeonato Computacional de Futebol (Parte 2)
 Sistema de gerenciamento de campeonatos de futebol em C, com funcionalidades de consulta de times, partidas e classificação.
 
@@ -214,7 +213,6 @@ ID   Time         V   E   D   GM   GS    S   PG
 
 O projeto atual modifica o arquivo CSV (banco de dados) ao inserir, remover ou atualizar as partidas.
 
----
 
 ## 🪫 Conclusão
 
