@@ -19,18 +19,21 @@ void ConsultarPartida(bdTimes *bdt, bdPartidas *bdp) {
     //Segue para time mandante
     if (option == 1) {
         timeMandante(bdt, bdp);
+        printf("\n---------------------\n");
         ConsultarPartida(bdt, bdp);
     }
 
     //Segue para time visitante
     else if (option == 2) {
         timeVisitante(bdt, bdp);
+        printf("\n---------------------\n");
         ConsultarPartida(bdt, bdp);
     } 
 
     //Segue para time mandante ou visitante
     else if (option == 3) {
         timeMandanteVisitante(bdt, bdp);
+        printf("\n---------------------\n");
         ConsultarPartida(bdt, bdp);
     }
 

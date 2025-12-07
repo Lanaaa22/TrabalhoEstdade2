@@ -36,9 +36,5 @@ int getTime2ID(bdPartidas *bdp, int i);
 int getGolsTime1(bdPartidas *bdp, int i);
 int getGolsTime2(bdPartidas *bdp, int i);
 int getPartidaID(bdPartidas *bdp, int i);
-Partida *getFirstPartida(bdPartidas *bdp);
-Partida *getNextPartida(Partida *p);
-int getPartidaIDP(bdPartidas *bdp, Partida *p);
-void setTime1Gols(Partida *p, int placar1);
-void setTime2Gols(Partida *p, int placar2);
+void AtualizarPartidaLista(int idAtualizado, int placar1, int placar2, bdPartidas *bdp);
 #endif

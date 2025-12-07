@@ -14,7 +14,6 @@ int main() {
     bdPartidas *bdpartida = createBDPartidas();
     extraiArquivoPartidas(bdpartida);
     
-
     LimpaTela();
     lobby(bdtime, bdpartida); // Entra no Menu
 

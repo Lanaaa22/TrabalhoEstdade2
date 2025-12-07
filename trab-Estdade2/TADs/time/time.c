@@ -3,12 +3,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+//nó de struct bdtimes
 struct time {
     int id; //id dos times
     char nome[50]; //nome do time
     Time *next;
 };
 
+//lista simplesmente encadeada (bdtimes)
 struct bdtimes {
     Time *first;
     int qtd;
@@ -116,4 +118,25 @@ char *nomeID(int id, bdTimes *bdt) {
         }
     }
     return NULL; // Caso não encontre nenhum
+}
+
+//trocar times para ordenação
+void trocarTimes(bdTimes *bdt, int atual, int anterior) {
+    Time *pAnterior = bdt->first; //nó aponta para o que first aponta
+    int i = 0;
+    Time *antesAnterior = NULL;
+    while(pAnterior != NULL && i < anterior) { //encontra o ponteiro para o nó anterior
+        antesAnterior = pAnterior; //aponta para o anterior
+        pAnterior = pAnterior->next; //next do anterior
+        i++;
+    }
+    Time *pAtual = pAnterior->next; //atual
+    if (antesAnterior == NULL)  { // então anterior é o primeiro elemento da lista
+        bdt->first = pAtual; //first precisa apontar para o atual
+    } else { //entao atual é o ultimo/meio elemento
+        antesAnterior->next = pAtual; 
+    }
+
+    pAnterior->next = pAtual->next; 
+    pAtual->next = pAnterior;
 }

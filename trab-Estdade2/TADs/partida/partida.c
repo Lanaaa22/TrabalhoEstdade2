@@ -4,6 +4,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define ARQUIVO_PARTIDAS "arquivos/partidas_completo.csv"
+
 struct partida {
     int id;          // Identificador da partida
     int Time1id;     // ID do primeiro time
@@ -39,7 +41,7 @@ Partida *createPartida(int id, int time1id,int time2id, int GolsTime1, int GolsT
 
 //Função que carrega arquivo partidas
 void extraiArquivoPartidas(bdPartidas *bdp) {
-    FILE *file = fopen("arquivos/partidas_completo.csv", "r");
+    FILE *file = fopen(ARQUIVO_PARTIDAS, "r");
     if (file == NULL)
     {
         printf("Erro ao abrir o arquivo\n");
@@ -187,24 +189,40 @@ int getPartidaID(bdPartidas *bdp, int i) {
     return p->id;
 }
 
-// Retorna o ID da Partida de acordo com o ponteiro p
-int getPartidaIDP(bdPartidas *bdp, Partida *p) {
-    return p->id;
+void RemoverPartidaLista(int id, bdPartidas *bdp) {
+    Partida *p = bdp->first;
+    while (p != NULL) {
+        if (p->id == id) {
+            // Se for o primeiro elemento
+            if (p->prev == NULL) {
+                bdp->first = p->next;
+            } 
+            else {
+                p->prev->next = p->next;
+            }
+            // Se for o último elemento
+            if (p->next == NULL) {
+                bdp->last = p->prev;
+            } 
+            else {
+                p->next->prev = p->prev;
+            }
+            bdp->qtd--;
+            free(p);
+            return;
+        }
+        p = p->next;
+    }
 }
 
-
-Partida *getFirstPartida(bdPartidas *bdp) {
-    return bdp->first;
-}
-
-Partida *getNextPartida(Partida *p) {
-    return p->next;
-}
-
-void setTime1Gols(Partida *p, int placar1) {
-    p->GolsTime1 = placar1;
-}
-
-void setTime2Gols(Partida *p, int placar2) {
-    p->GolsTime2 = placar2;
+void AtualizarPartidaLista(int idAtualizado, int placar1, int placar2, bdPartidas *bdp) {
+    Partida *p = bdp->first;
+    while (p != NULL) {
+        if (p->id == idAtualizado) {
+            p->GolsTime1 = placar1;
+            p->GolsTime2 = placar2;
+            return;
+        }
+        p = p->next;
+    }
 }

@@ -4,16 +4,18 @@
 #include "../classificacao/imprimir_classificacao.h"
 #include "../partida/inserir_partida.h"
 #include "../partida/remover_partida.h"
+#include "../partida/atualizar_partida.h"
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <locale.h>
+
 // Menu do programa (Interface)
 void lobby(bdTimes *bdt, bdPartidas *bdp) {  
     setlocale(LC_ALL, "");
     printf("Escolha 1 opcao: ⚽\n\n");
-    printf("---------------------\n\n");
+    printf("---------------------\n");
     printf("1: Consultar Time\n");
     printf("2: Consultar Partidas\n");
     printf("3: Atualizar Partida\n");
@@ -74,7 +76,8 @@ void lobby(bdTimes *bdt, bdPartidas *bdp) {
     else {
         LimpaTela();
         printf("Digite uma opção válida\n");
-        printf("---------------------\n\n");
+        printf("---------------------\n");
         lobby(bdt, bdp);
     }
+    //printBDPartidas(bdp);
 }

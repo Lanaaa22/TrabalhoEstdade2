@@ -1,21 +1,13 @@
 #include "../partida/atualizar_partida.h"
+#include "../partida/partida.h"
 #include "../system/system.h"
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <locale.h>
 
-// Função que retorna o nome do time de acordo com o ID
-char *nomeID(int id, bdTimes *bdt) { 
-    for (int i = 0; i < getQtdTimes(bdt); i++) { // Percorre todos os times
-        if (id == getIDTime(bdt, i)) { // Se o id for igual ao id percorrido no índice i
-            return getNomeTime(bdt, i); // Retorna o nome
-        }
-    }
-    return NULL; // Caso não encontre nenhum
-}
+#define ARQUIVO_PARTIDAS "arquivos/partidas_completo.csv"
 
-//acho que está errado considerando que estamos pegando por LISTA ENCADEADA
 void MostrarPartidas(bdPartidas *bdp, bdTimes *bdt) {
     printf("ID   Time1        Time2        Placar1  Placar2\n");
     for (int i = 0; i < getQtdPartidas(bdp); i++) {
@@ -28,6 +20,7 @@ void MostrarPartidas(bdPartidas *bdp, bdTimes *bdt) {
     }
 }
 
+//retorna a quantidade de gols que o time 1 fez
 int golsID1(bdPartidas *bdp, int id) {
     for(int i = 0; i < getQtdPartidas(bdp); i++) {
         if (id == getPartidaID(bdp, i)) {
@@ -37,6 +30,7 @@ int golsID1(bdPartidas *bdp, int id) {
     return -1;
 }
 
+//retorna a quantidade de gols que o time 2 fez
 int golsID2(bdPartidas *bdp, int id) {
     for(int i = 0; i < getQtdPartidas(bdp); i++) {
         if (id == getPartidaID(bdp, i)) {
@@ -46,6 +40,7 @@ int golsID2(bdPartidas *bdp, int id) {
     return -1;
 }
 
+//retorna o time 1 da partida id
 int IDTime1Partida(bdTimes *bdt, bdPartidas *bdp, int idPartida) {
     for(int i = 0; i < getQtdPartidas(bdp); i++) {
         if(getPartidaID(bdp, i) == idPartida) {
@@ -55,6 +50,7 @@ int IDTime1Partida(bdTimes *bdt, bdPartidas *bdp, int idPartida) {
     return -1;
 }
 
+//retorna o time2 da partida id
 int IDTime2Partida(bdTimes *bdt, bdPartidas *bdp, int idPartida) {
     for(int i = 0; i < getQtdPartidas(bdp); i++) {
         if(getPartidaID(bdp, i) == idPartida) {
@@ -65,59 +61,61 @@ int IDTime2Partida(bdTimes *bdt, bdPartidas *bdp, int idPartida) {
 }
 
 void AtualizarPartida(bdTimes *bdt, bdPartidas *bdp) {
-    MostrarPartidas(bdp, bdt);
+    if (getQtdPartidas(bdp) == 0){
+        printf("---------------------\n");
+        printf("Sem registros de Partidas\n");
+        printf("---------------------\n");
+        return;
+    }
+    MostrarPartidas(bdp, bdt); //mostra as partidas
+    printf("-----------------------------------------\n");
     int gol1, gol2;
     int idAtualizado;
     char placar1[6], placar2[6];
     printf("Digite o ID do registro a ser atualizado:");
     scanf("%d", &idAtualizado);
-    printf("Digite o novo valor para os campos Placar1 e Placar2 (para manter o valor atual de um campo, digite’-’):");
-    scanf("%s %s", placar1, placar2);
-    if(strcmp(placar1, "-") == 0) {
+    printf("Para manter o valor atual de um campo, digite ’-’\n");
+    printf("Digite o novo valor para os seguintes campos: \n");
+    printf("🥅 Placar1: \n");
+    scanf("%s", placar1);
+    printf("🥅 Placar2: \n");
+    scanf("%s" , placar2);
+    if(strcmp(placar1, "-") == 0) { //então, o placar vai ser o mesmo do anterior
         gol1 = golsID1(bdp,idAtualizado);
     } else {
-        gol1 = atoi(placar1);
+        gol1 = atoi(placar1); //senão, altera o placar novo para inteiro
     }
-    if(strcmp(placar2, "-") == 0) {
+    if(strcmp(placar2, "-") == 0) { //então, o placar vai ser o mesmo do anterior
         gol2 = golsID2(bdp,idAtualizado);
     } else {
-        gol2 = atoi(placar2);
+        gol2 = atoi(placar2); //senão, altera o placar novo para inteiro
     }
-    int IDtime1 = IDTime1Partida(bdt, bdp, idAtualizado);
-    int IDtime2 = IDTime2Partida(bdt, bdp, idAtualizado);
-    char *time1 = nomeID(IDtime1, bdt);
-    char *time2 = nomeID(IDtime2, bdt);
+    int IDtime1 = IDTime1Partida(bdt, bdp, idAtualizado); //id do time 1
+    int IDtime2 = IDTime2Partida(bdt, bdp, idAtualizado); //id do time 2
+    char *time1 = nomeID(IDtime1, bdt); //nome do time 1
+    char *time2 = nomeID(IDtime2, bdt); //nome do time 2
+    //confirmação
     printf("Confirma os novos valores para o registro abaixo? (S/N)");
     char option[5]; 
     scanf("%s", option);
     printf("%-4s %-10s %-7s %-10s\n", "ID", "Time 1", "","Time 2");
     printf("%-4d %-10s %-2d x %-2d %-10s\n", idAtualizado, time1, gol1, gol2, time2);
-    if (strcmp(option, "S") == 0) {
-        //AtualizarPartidaArquivo(IDtime1, IDtime2, placar1, placar2);
-        AtualizarPartidaLista(idAtualizado, gol1, gol2, bdp);
-        AtualizarPartidaArquivo(idAtualizado, gol2, gol1, IDtime1, IDtime2);
-        printf("Registro atualizado com sucesso.");
-    }
+    if (strcmp(option, "S") != 0 && strcmp(option, "s") != 0) {
+        printf("Operação Cancelada");
+    } 
+    AtualizarPartidaLista(idAtualizado, gol1, gol2, bdp);
+    AtualizarPartidaArquivo(idAtualizado, gol1, gol2, IDtime1, IDtime2);
 }
 
-void AtualizarPartidaLista(int idAtualizado, int placar1, int placar2, bdPartidas *bdp) {
-    Partida *p = getFirstPartida(bdp);
-    while (p != NULL) {
-        if (getPartidaIDP(bdp, p) == idAtualizado) {
-            setTime1Gols(p, placar1);
-            setTime2Gols(p, placar2);
-        }
-        p = getNextPartida(p);
-    }
-}
-
-void AtualizarPartidaArquivo(int id, int placar1, int placar2, char *time1, char*time2) {
-    FILE *file = fopen("arquivos/partidas_completo.csv", "r");
+//atualiza a partida no arquivo
+void AtualizarPartidaArquivo(int id, int placar1, int placar2, int time1, int time2) {
+    FILE *file = fopen(ARQUIVO_PARTIDAS, "r");
     if (file == NULL){
         printf("Erro ao abrir arquivo\n");
         return;
     }
-    FILE *temp = fopen("arquivos/partidasA_temp.csv", "w");
+    //cria um arquivo temporário
+    FILE *temp = fopen("arquivos/partidas_temp.csv", "w");
     if (temp == NULL) {
         printf("Erro ao criar arquivo temporário.\n");
         fclose(file);
@@ -137,8 +135,8 @@ void AtualizarPartidaArquivo(int id, int placar1, int placar2, char *time1, char
         if (idLinha != id) {
             fprintf(temp, "%s", linha);
         } else {
-            fprintf(temp, "%d,%d,%d,%d,%d\n", id, time1, time2, placar1, placar2);
-            encontrou = 1; 
+            fprintf(temp, "%d,%d,%d,%d,%d\n", id, time1, time2, placar1, placar2); //escreve a linha atualizada
+            encontrou = 1; //diz que encontrou
         }
     }
     fclose(file);
@@ -146,12 +144,17 @@ void AtualizarPartidaArquivo(int id, int placar1, int placar2, char *time1, char
     
     if (encontrou) {
         //remove o arquivo original e renomeia o temporário
-        remove("arquivos/partidas_completo.csv");
-        rename("arquivos/partidas_temp.csv", "arquivos/partidas_completo.csv");
+        remove(ARQUIVO_PARTIDAS);
+        rename("arquivos/partidas_temp.csv", ARQUIVO_PARTIDAS);
+        printf("---------------------\n");
+        printf("Registro atualizado com sucesso.\n");
+        printf("---------------------\n\n");
     } 
     else {
         //remove o arquivo temporário se não encontrou
         remove("arquivos/partidas_temp.csv");
+        printf("---------------------\n");
         printf("Partida não encontrada.\n");
+        printf("---------------------\n\n");
     }
 }

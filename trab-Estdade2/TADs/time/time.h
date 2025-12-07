@@ -28,5 +28,8 @@ void liberaBDTimes(bdTimes *bd);
 int getQtdTimes(bdTimes *bdt);
 int getIDTime(bdTimes *bdt, int i);
 char* getNomeTime(bdTimes *bdt, int i);
+// Função que retorna o nome do time de acordo com o ID
 char *nomeID(int id, bdTimes *bdt);
+
+void trocarTimes(bdTimes *bdt, int atual, int anterior);
 #endif
