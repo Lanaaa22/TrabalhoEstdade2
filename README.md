@@ -186,6 +186,10 @@ ID   Time         V   E   D   GM   GS    S   PG
 →   Criação de Interface <br>
 →   Inserir os nomes dos times mesmo se digitar somente o sufixo <br>
 
+## 👀 Observações
+
+#### O projeto atual modifica o arquivo csv (banco de dados) ao inserir, remover ou atualizar as partidas.
+
 ## 🪫 Conclusão
 Assim, com a leitura do README, é possível compreender o programa profundamente e executá-lo. **Obrigado(a) pela atenção!**
 
