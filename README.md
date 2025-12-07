@@ -129,7 +129,7 @@ typedef struct bdtimes bdTimes; // Tipo bdTimes (banco de dados de times)
 | `lobby(bdTimes *bdt, bdPartidas *bdp)`           | system.c                     | Exibe o menu inicial com as opções principais do sistema.             |
 | `ConsultarTime(bdTimes *bdt, bdPartidas *bdp)`   | consultar_time.c             | Consulta um time pelo ID e exibe suas informações.                    |
 | `ConsultarPartida(bdTimes *bdt, bdPartidas *bdp)`| consultar_partida.c          | Exibe os dados de uma partida específica.                             |
-| `Classificacao(bdTimes *bdt, bdPartidas *bdp)`   | imprimir_classificacao.c     | Gera e exibe a tabela de classificação atualizada.                    |
+| `Classificacao(bdTimes *bdt, bdPartidas *bdp)`   | imprimir_classificacao.c     | Gera e exibe a tabela de classificação atualizada ordenada decrescentemente pelos Pontos Ganhos (PG), considerando vitórias (V) e Saldo de Gols (SG) como critérios de desempate.                    |
 | `LimpaTela()`                                    | auxiliares.c                 | Limpa a tela do terminal de forma compatível com Windows e Linux.     |
 | `InserirPartida(bdTimes *bdt, bdPartidas *bdp)`  | inserir_partida.c            | Solicita informações ao usuário e insere uma nova partida.            |
 | `RemoverPartidaArquivo(int id)`                  | remover_partida.c            | Remove do arquivo a partida correspondente ao ID informado.           |
