@@ -175,13 +175,13 @@ ID   Time         V   E   D   GM   GS    S   PG
 0    JAVAlis      6   2   1   24   12   12   20
 ```
 
-## ♟️ Futuras melhorias escritas na Parte 1
+## ♟️ Futuras melhorias para Parte 1
 
 →   Atualizar partida ✅<br>
 →   Remover partida   ✅<br>
 →   Inserir partida   ✅<br>
 
-## ♟️ Futuras melhorias para Parte 1
+## ♟️ Futuras melhorias para Parte 2
 
 →   Criação de Interface <br>
 →   Inserir os nomes dos times mesmo se digitar somente o sufixo <br>
