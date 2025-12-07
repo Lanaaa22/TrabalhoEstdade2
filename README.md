@@ -75,7 +75,7 @@ make clean
 ### **Compilando manualmente:**
 ```
 
-gcc main.c TADs/classificacao/imprimir_classificacao.c TADs/partida/atualizar_partida.c TADs/partida/consultar_partida.c TADs/partida/inserir_partida.c TADs/partida/partida.c TADs/partida/remover_partida.c TADs/system/auxiliares.c TADs/system/system.c TADs/system/time/consultar_time.c TADs/system/time/time.c -I TADs -o programa
+gcc main.c TADs/classificacao/imprimir_classificacao.c TADs/partida/atualizar_partida.c TADs/partida/consultar_partida.c TADs/partida/inserir_partida.c TADs/partida/partida.c TADs/partida/remover_partida.c TADs/system/auxiliares.c TADs/system/system.c TADs/time/consultar_time.c TADs/time/time.c -I TADs -o programa
 
 ```
 
