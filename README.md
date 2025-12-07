@@ -218,5 +218,5 @@ O projeto atual modifica o arquivo CSV (banco de dados) ao inserir, remover ou a
 
 Assim, com a leitura do README, é possível compreender o programa profundamente e executá-lo. Obrigado(a) pela atenção!
 
-```
-```
+![VacationModeVacayModeGIF](https://github.com/user-attachments/assets/b69fa989-6c93-4a74-9eef-8aab9d736e0c)
+
